@@ -3,31 +3,6 @@ import { parse } from 'graphql';
 import { extractInlineConfigs } from '../src/inline_configuration';
 
 describe('extractInlineConfigs', () => {
-  it('removes Comment tokens that are inline configs', () => {
-    const ast = parse(`
-      # lint-disable types-have-descriptions
-      type Query {
-        viewer: User!
-      }
-
-      # lint-enable types-have-descriptions
-      # User description
-      type User {
-        email: String! # lint-disable-line fields-have-descriptions
-      }
-`);
-
-    const previousTokens = astToTokens(ast);
-    extractInlineConfigs(ast);
-    const afterTokens = astToTokens(ast);
-
-    assert.equal(3, previousTokens.filter(inlineConfigurationToken).length);
-    assert.equal(0, afterTokens.filter(inlineConfigurationToken).length);
-
-    assert.equal('<SOF>', afterTokens[0].kind);
-    assert.equal('type', afterTokens[0].next.value);
-  });
-
   it('extracts lint-enable configuration', () => {
     const ast = parse(`
       type Query {

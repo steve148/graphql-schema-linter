@@ -10,6 +10,7 @@ require('./configuration');
 require('./runner');
 require('./source_map');
 require('./validator');
+require('./inline_configuration');
 require('./rules/fields_have_descriptions');
 require('./rules/fields_are_camel_cased.js');
 require('./rules/types_have_descriptions');

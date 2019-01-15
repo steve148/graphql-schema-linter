@@ -5,12 +5,6 @@ export function extractInlineConfigs(ast) {
 
   while (token) {
     if (token.kind == 'Comment' && token.value.startsWith(' lint-')) {
-      const previousToken = token.prev;
-      const nextToken = token.next;
-
-      previousToken.next = nextToken;
-      nextToken.prev = previousToken;
-
       configurations.push(parseInlineComment(token));
     }
 
